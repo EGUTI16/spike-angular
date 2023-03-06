@@ -1,8 +1,8 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import { User } from 'src/app/Models/user';
+import {User} from 'src/app/Models/user';
 
 @Component({
-  selector: 'app-Form',
+  selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
@@ -15,7 +15,10 @@ export class FormComponent {
   @Output() currentList: EventEmitter<any> = new EventEmitter();
 
   state = false;
-  users: Array<User> = []
+  currentType = "";
+  currentToastMessage = "";
+  currentToastTitle = "";
+  users: Array<User> = [];
   user = {
     document: 0,
     documentExpeditionPlace: "",
@@ -32,9 +35,9 @@ export class FormComponent {
   public formValidation(a: any) {
     this.user.document = +a.detail.inputs[0].value;
     if (!this.stringValidation(a.detail.inputs[1].value)) this.user.name = a.detail.inputs[1].value;
-    else console.log("Nombre incorrecto")
+    else this.showToast("WARNING", "El nombre no debe incluir ninguno de los siguientes caracteres [#,$,-,/,!]", "Error de escritura");
     if (!this.stringValidation(a.detail.inputs[2].value)) this.user.surname = a.detail.inputs[2].value;
-    else console.log("Apellido incorrecto")
+    else this.showToast("ERROR", "El apellido no debe incluir ninguno de los siguientes caracteres [#,$,-,/,!]", "Error de escritura");
     this.user.email = a.detail.inputs[3].value;
     if (a.detail.inputs[4].valid) this.user.date = a.detail.inputs[4].value.value
     this.user.salary = a.detail.inputs[5].value;
@@ -42,6 +45,7 @@ export class FormComponent {
     this.user.ocupation = a.detail.inputs[8].value !== null ? a.detail.inputs[8].value.title : '';
     if (a.detail.canContinue) {
       this.state = true;
+      a.detail.inputs[0].value = " "
     }
   }
 
@@ -69,6 +73,17 @@ export class FormComponent {
       this.loader.nativeElement.closeLoader();
     }, 3000);
     this.currentList.emit(this.users);
+    window.scroll(0, 0)
+  }
+
+  public showToast(type: string, message: string, title: string) {
+    this.currentToastTitle = title;
+    this.currentType = type;
+    this.currentToastMessage = message;
+    this.atToastElement1.nativeElement.show();
+  }
+  public formReset(){
+
   }
 }
 
