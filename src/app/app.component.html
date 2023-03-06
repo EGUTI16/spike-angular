@@ -3,10 +3,13 @@
   <div class="mainContent-formContainer">
     <h1>Nuevo Usuario</h1>
     <div class="mainContent-formContainer-box">
-      <app-Form (currentList)="userList($event)"></app-Form>
+      <app-form (currentList)="userList($event)"></app-form>
     </div>
   </div>
   <div class="mainContent-tableContainer">
-
+    <div class="mainContent-tableContainer-box">
+      <h1>Usuarios registrados</h1>
+      <app-table [currentUser]="currentUser" [usersList]="usersList"></app-table>
+    </div>
   </div>
 </div>

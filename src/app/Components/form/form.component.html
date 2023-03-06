@@ -1,5 +1,5 @@
-<bdb-at-toast #atToastElement1 type="ERROR" title-toast="Error"
-              text-desc="Complete los cambios requeridos "></bdb-at-toast>
+<bdb-at-toast #atToastElement1 [type]="currentType" [titleToast]="currentToastTitle"
+              [message]="currentToastMessage"></bdb-at-toast>
 <bdb-ml-loader #loader text-label="Registro de usuario en progreso"></bdb-ml-loader>
 
 <bdb-ml-basic-data can-continue-btn=true (mlDataChanged)="formValidation($event)" (mlCanContinue)="confirmCreation()"
