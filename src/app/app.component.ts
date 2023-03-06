@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'spike-angular';
+
+  usersList: Array<any> = [];
+  currentUser = {};
+
+  public userList(a: any) {
+    this.usersList = a;
+  }
 }
